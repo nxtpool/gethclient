@@ -1,0 +1,19 @@
+{
+  "name": "gethclient",
+  "version": "0.1.0",
+  "description": "proxy server to query remote geth node",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "mocha"
+  },
+  "keywords": [
+    "geth",
+    "client"
+  ],
+  "author": "Angelo Tomarcafe",
+  "license": "MIT",
+  "dependencies": {
+    "yamljs": "^0.2.7"
+  }
+}
