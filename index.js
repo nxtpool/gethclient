@@ -3,19 +3,15 @@ const express = require ('express');
 const app = express();
 const fs = require('fs');
 const path = require('path')
+// geth --jspath "/root/gethscripts" --preload "sum.js" --exec "sum(2,3)" attach
 
-function version(){ return 'gethclient v0.1.0'; }
+function version(){ return 'gethclient v0.1.0\n'; }
+app.get('/', function(req, res){  res.send(version()); });
 
-app.get('/', function(req, res){
-  res.send(version());
-});
-
-app.get('/geth/*', function(req, res, next){
-  const ipv4 = req.ip.split(':').pop();
-  if (config.whitelist.indexOf(ipv4) >= 0) next();
-  else res.status(403).end();
-});
-
+const whitelist = require('./lib/middleware/whitelist')(config.whitelist);  
+app.get('/geth', whitelist);
+app.get('/geth/*', whitelist);
+app.get('/geth', function(req, res){  res.send('Hello kong!\n');});
 app.get('/geth/*', function (req, res) {
   console.log(req.params);
   const scope = req.params[0];
