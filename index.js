@@ -11,10 +11,14 @@ app.get('/', function(req, res){  res.send(version()); });
 
 const whitelist = require('./lib/middleware/whitelist')(config.whitelist);  
 const serve = require('./lib/handlers/basic')(config.clientscripts);
+
 app.get('/geth', whitelist);
-app.get('/geth/*', whitelist);
 app.get('/geth', function(req, res){  res.send('Hello kong!\n');});
+
+app.get('/geth/*', whitelist);
 app.get('/geth/*', serve);
- 
+
+app.get('/*', whitelist);
+app.get('/*', serve);
 console.log(config);
 app.listen(config.PORT || 1838);
