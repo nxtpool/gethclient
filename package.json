@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "test": "mocha"
+    "test": "ava"
   },
   "keywords": [
     "geth",
@@ -20,6 +20,7 @@
     "yamljs": "^0.2.7"
   },
   "devDependencies": {
+    "ava": "^0.17.0",
     "rollup": "^0.41.4"
   }
 }
