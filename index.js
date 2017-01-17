@@ -1,24 +1,18 @@
 "use strict";
-const config = require ('./lib/config')();
+const argv = require('minimist')(process.argv.slice(2));
+const config = require ('./lib/config')(argv.config);
 const express = require ('express');
 const app = express();
 // geth --jspath "/root/gethscripts" --preload "sum.js" --exec "sum(2,3)" attach
-const fs = require('fs');
-const path = require('path')
+const whitelist = require('./lib/middleware/whitelist')(config.whitelist);
+const pack = require('./package.json');
+const version = `gethclient v${pack.version}\n`;
+app.get('/', function(req, res){  res.send(version) });
 
-function version(){ return 'gethclient v0.1.0\n'; }
-app.get('/', function(req, res){  res.send(version()); });
+//app.use(whitelist);
 
-const whitelist = require('./lib/middleware/whitelist')(config.whitelist);  
-const serve = require('./lib/handlers/basic')(config.clientscripts);
-
-app.get('/geth', whitelist);
-app.get('/geth', function(req, res){  res.send('Hello kong!\n');});
-
-app.get('/geth/*', whitelist);
-app.get('/geth/*', serve);
-
-app.get('/*', whitelist);
-app.get('/*', serve);
+const serve = require('./lib/handlers/w3');
+app.get('/Ethereum/*', serve);
+console.log("")
 console.log(config);
 app.listen(config.PORT || 1838);

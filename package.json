@@ -15,6 +15,11 @@
   "license": "MIT",
   "dependencies": {
     "express": "^4.13.4",
+    "minimist": "^1.2.0",
+    "web3": "^0.18.2",
     "yamljs": "^0.2.7"
+  },
+  "devDependencies": {
+    "rollup": "^0.41.4"
   }
 }
