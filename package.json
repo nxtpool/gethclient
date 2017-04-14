@@ -1,7 +1,7 @@
 {
   "name": "gethclient",
   "version": "0.1.0",
-  "description": "proxy server to query remote geth node",
+  "description": "proxy server to query parity node",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
