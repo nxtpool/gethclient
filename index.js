@@ -6,16 +6,20 @@ if (crc.isError(config)) {
   throw new Error("could not load config")
   exit(1)
 }
+
 const express = require ('express')
 const app = express()
-const whitelist = require('./lib/middleware/whitelist')(config.whitelist)
 const pack = require('./package.json')
 const version = `gethclient v${pack.version}\n`
-app.use(whitelist)
 app.get('/', function(req, res){  res.send(version) })
+
+const whitelist = require('./lib/middleware/whitelist')(config.whitelist)
+app.use(whitelist)
 
 const serve = require('./lib/handlers/w3')
 app.get('/Ethereum/*', serve)
-console.log("")
+
+console.log(`${version} starting with config: `)
 console.log(config)
+
 app.listen(config.PORT || 1838)
