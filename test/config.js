@@ -1,13 +1,17 @@
 import test from 'ava';
-
+const cmc = require('../lib/constants/return_codes')
 const config = require('../lib/config')
+const filepathFailure='/path/to/imaginary/thing'
+const filepathDefaultConfig = './config.yml'
 
+var configValue;
+test('config returns error value on wrong config filepath', t => {
 
-test('config throws on wrong config filepath', t => {
-  const filepath='/path/to/imaginary/thing'
-  const error = t.throws(() => {
-     config(filepath)
-  }, Error);
+  t.is(config(filepathFailure), cmc.ERROR);
+})
 
-  t.is(error.message, `no file found at path ${filepath} or Yaml parse error`);
+test('config loads from defaiult path', t => {
+  configValue = config(filepathDefaultConfig)
+  console.log(configValue)
+  t.not(configValue.whitelist, null);
 });

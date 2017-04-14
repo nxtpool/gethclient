@@ -16,11 +16,13 @@
   "dependencies": {
     "express": "^4.13.4",
     "minimist": "^1.2.0",
+    "node-dir": "^0.1.16",
     "web3": "^0.18.2",
+    "winston": "^2.3.1",
     "yamljs": "^0.2.7"
   },
   "devDependencies": {
-    "ava": "^0.17.0",
+    "ava": "^0.18.2",
     "rollup": "^0.41.4"
   }
 }
